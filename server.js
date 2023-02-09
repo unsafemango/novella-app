@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://novella.herokuapp.com/", // location of the react app we are connecting to
+    origin: "https://lively-cow-turtleneck.cyclic.app", // location of the react app we are connecting to
     credentials: true,
   })
 );
