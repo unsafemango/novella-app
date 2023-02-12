@@ -20,9 +20,6 @@ const Post = require("./models/post");
 // port
 var port = process.env.PORT || 4000;
 
-dotenv.config();
-const { MONGO_CONNECT_STRING } = process.env;
-
 const app = express();
 
 // Middleware
@@ -30,7 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://lively-cow-turtleneck.cyclic.app/", // location of the react app we are connecting to
+    origin: "https://cautious-tuna-sock.cyclic.app", // location of the app we are connecting to
     credentials: true,
   })
 );
