@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:4000", // location of the react app we are connecting to
+    origin: "https://cautious-tuna-sock.cyclic.app/", // location of the app we are connecting to
     credentials: true,
   })
 );
