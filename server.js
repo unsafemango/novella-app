@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
@@ -18,6 +20,9 @@ const Post = require("./models/post");
 // port
 var port = process.env.PORT || 4000;
 
+dotenv.config();
+const { MONGO_CONNECT_STRING } = process.env;
+
 const app = express();
 
 // Middleware
@@ -25,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://cautious-tuna-sock.cyclic.app", // location of the app we are connecting to
+    origin: "http://localhost:4000", // location of the react app we are connecting to
     credentials: true,
   })
 );
@@ -68,7 +73,7 @@ app.get("/api/posts/:id", (req, res) => {
 });
 
 // route to add posts
-app.post("api/add-post", (req, res) => {
+app.post("/api/add-post", (req, res) => {
   Post.findOne({ title: req.body.title }, async (err, post) => {
     if (err) res.send(err);
 
@@ -176,20 +181,6 @@ app.put("/api/post/:post_id/upvote", (req, res) => {
       if (canUpVote) {
         if (downvoteIds.includes(username)) {
           // remove downvote and add upvote
-
-          // Post.updateOne(
-          //   { _id: post_id },
-          //   { $inc: { upvote: 1 }, $push: { upvoteIds: username } },
-          //   { $inc: { downvote: -1 }, $pull: { downvoteIds: username } },
-          //   (err, post) => {
-          //     if (err) throw err;
-          //     Post.findOne({ _id: post_id }, (err, post) => {
-          //       if (err) res.status(404).send("Sorry, can't find that");
-          //       res.json(post);
-          //     });
-          //   }
-          // );
-
           Post.updateOne(
             { _id: post_id },
             { $inc: { upvote: 1 }, $push: { upvoteIds: username } },
@@ -243,20 +234,6 @@ app.put("/api/posts/:post_id/downvote", (req, res) => {
       if (canDownVote) {
         if (upvoteIds.includes(username)) {
           // remove upvote and add downvote
-
-          // Post.updateOne(
-          //   { _id: post_id },
-          //   { $inc: { downvote: 1 }, $push: { downvoteIds: username } },
-          //   { $inc: { upvote: -1 }, $pull: { upvoteIds: username } },
-          //   (err, post) => {
-          //     if (err) throw err;
-          //     Post.find(function (err, posts) {
-          //       if (err) res.send(err);
-          //       res.json(posts);
-          //     });
-          //   }
-          // );
-
           Post.updateOne(
             { _id: post_id },
             { $inc: { downvote: 1 }, $push: { downvoteIds: username } },
@@ -310,20 +287,6 @@ app.put("/api/post/:post_id/downvote", (req, res) => {
       if (canDownVote) {
         if (upvoteIds.includes(username)) {
           // remove upvote and add downvote
-
-          // Post.updateOne(
-          //   { _id: post._id },
-          //   { $inc: { downvote: 1 }, $push: { downvoteIds: username } },
-          //   { $inc: { upvote: -1 }, $pull: { upvoteIds: username } },
-          //   (err, post) => {
-          //     if (err) throw err;
-          //     Post.findOne({ _id: post_id }, (err, post) => {
-          //       if (err) res.status(404).send("Sorry, can't find that");
-          //       res.json(post);
-          //     });
-          //   }
-          // );
-
           Post.updateOne(
             { _id: post_id },
             { $inc: { downvote: 1 }, $push: { downvoteIds: username } },
