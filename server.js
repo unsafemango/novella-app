@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://novella-l9yx.onrender.com/", // location of the app we are connecting to
+    origin: "https://novella.cyclic.app/", // location of the app we are connecting to
     credentials: true,
   })
 );
