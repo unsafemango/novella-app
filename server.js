@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://novella.vercel.app/", // location of the app we are connecting to
+    origin: "https://cautious-tuna-sock.cyclic.app/", // location of the app we are connecting to
     credentials: true,
   })
 );
